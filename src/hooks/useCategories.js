@@ -4,10 +4,10 @@ import {
   useState,
 } from "react";
 
-import { productsService } from "../services/productsService";
+import { categoriesService } from "../services/categoriesService";
 
-export function useProducts() {
-  const [products, setProducts] = useState([]);
+export function useCategories() {
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -17,37 +17,37 @@ export function useProducts() {
     setError("");
 
     try {
-      const data = await productsService.list();
+      const data = await categoriesService.list();
 
-      setProducts(data);
+      setCategories(data);
     } catch (err) {
       console.error(err);
 
       setError(
-        "Não foi possível carregar os produtos."
+        "Não foi possível carregar as categorias."
       );
     } finally {
       setLoading(false);
     }
   }, []);
 
-  const createProduct = async (data) => {
+  const createCategory = async (data) => {
     setBusy(true);
     setError("");
 
     try {
-      const product =
-        await productsService.create(data);
+      const category =
+        await categoriesService.create(data);
 
       await load();
 
-      return product;
+      return category;
     } catch (err) {
       console.error(err);
 
       setError(
         err.message ||
-          "Não foi possível cadastrar o produto."
+          "Não foi possível cadastrar a categoria."
       );
 
       throw err;
@@ -56,23 +56,23 @@ export function useProducts() {
     }
   };
 
-  const updateProduct = async (id, data) => {
+  const updateCategory = async (id, data) => {
     setBusy(true);
     setError("");
 
     try {
-      const product =
-        await productsService.update(id, data);
+      const category =
+        await categoriesService.update(id, data);
 
       await load();
 
-      return product;
+      return category;
     } catch (err) {
       console.error(err);
 
       setError(
         err.message ||
-          "Não foi possível atualizar o produto."
+          "Não foi possível atualizar a categoria."
       );
 
       throw err;
@@ -81,12 +81,12 @@ export function useProducts() {
     }
   };
 
-  const removeProduct = async (id) => {
+  const removeCategory = async (id) => {
     setBusy(true);
     setError("");
 
     try {
-      await productsService.remove(id);
+      await categoriesService.remove(id);
 
       await load();
 
@@ -96,7 +96,7 @@ export function useProducts() {
 
       setError(
         err.message ||
-          "Não foi possível excluir o produto."
+          "Não foi possível excluir a categoria."
       );
 
       throw err;
@@ -110,15 +110,15 @@ export function useProducts() {
   }, [load]);
 
   return {
-    products,
+    categories,
     loading,
     busy,
     error,
 
     reload: load,
 
-    createProduct,
-    updateProduct,
-    removeProduct,
+    createCategory,
+    updateCategory,
+    removeCategory,
   };
 }
