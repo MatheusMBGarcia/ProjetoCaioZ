@@ -75,3 +75,22 @@ SELECT 'Administrador', 'admin@estoque.local', '1234', 'ADMIN', 1
 WHERE NOT EXISTS (
   SELECT 1 FROM usuarios WHERE LOWER(email) = 'admin@estoque.local'
 );
+
+CREATE TABLE IF NOT EXISTS estoque_vendas (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  produto_id INT NOT NULL,
+  quantidade DECIMAL(12,3) NOT NULL DEFAULT 0,
+  estoque_minimo DECIMAL(12,3) NOT NULL DEFAULT 0,
+  ativo TINYINT(1) NOT NULL DEFAULT 1,
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  atualizado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    ON UPDATE CURRENT_TIMESTAMP,
+
+  UNIQUE KEY uq_estoque_vendas_produto (produto_id),
+
+  CONSTRAINT fk_estoque_vendas_produto
+    FOREIGN KEY (produto_id)
+    REFERENCES produtos(id)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE
+);
