@@ -10,7 +10,7 @@ function Status({ product }) {
 }
 
 function isForSale(product) {
-  return Number(product.sale) > 0;
+  return product.stockCategory === "sale" || Number(product.sale) > 0;
 }
 
 function StockTable({ products, forSale }) {
@@ -21,7 +21,10 @@ function StockTable({ products, forSale }) {
 
 export default function StockComparison() {
   const { products, loading, error } = useProducts();
-  const { internal, sale } = useMemo(() => ({ internal: products.filter((product) => !isForSale(product)), sale: products.filter(isForSale) }), [products]);
+  const { internal, sale } = useMemo(() => ({
+    internal: products.filter((product) => !isForSale(product)),
+    sale: products.filter(isForSale),
+  }), [products]);
 
   if (loading) return <div className="panel state">Carregando comparação do estoque...</div>;
   if (error) return <div className="panel state error">{error}</div>;
