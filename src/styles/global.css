@@ -1979,7 +1979,7 @@ main,
   flex:0 0 auto;
 }
 .notification-clear:hover{color:var(--text);background:var(--panel)}
-.notification-list{padding:10px 12px 12px}
+.notification-list{padding:12px 12px 12px}
 .notification-section-title{
   display:flex;align-items:center;gap:7px;margin:0 2px 8px;color:var(--text);font-size:11px;
 }
@@ -1993,7 +1993,7 @@ main,
   align-items:center;
   gap:12px;
   min-height:68px;
-  padding:10px 11px;
+  padding:10px 15px;
   border:1px solid var(--border);
   border-radius:12px;
   background:var(--panel);
@@ -2010,15 +2010,28 @@ main,
 .notification-card-main{min-width:0}
 .notification-card-main strong{display:block;font-size:13px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .notification-card-main span{display:block;margin-top:3px;font-size:11px;color:var(--muted)}
-.notification-stock{padding-left:11px;border-left:1px solid var(--border);min-width:0}
+.notification-stock{padding-left:13px;border-left:1px solid var(--border);min-width:0}
 .notification-stock small{display:block;color:var(--muted);font-size:10px;margin-bottom:3px;white-space:nowrap}
 .notification-stock strong{font-size:12px;color:var(--text);white-space:nowrap}
 .notification-card.low .notification-stock:first-of-type strong{color:#c76a00}
 .notification-card.out .notification-stock:first-of-type strong{color:#d84c55}
-.notification-view{
-  width:86px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  border:1px solid var(--border);background:var(--panel);color:var(--text);
-  border-radius:8px;padding:8px 7px;font-size:11px;font-weight:700;cursor:pointer;
+.notification-view {
+  width: 100px;
+  min-width: 100px;
+
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
 }
 .notification-view:hover{border-color:#159f8c55;color:var(--green)}
 .notification-empty-state{display:flex;align-items:center;gap:12px;padding:24px 16px}
@@ -2032,14 +2045,744 @@ main,
 .notification-badge{
   position:absolute;top:-5px;right:-6px;min-width:18px;height:18px;padding:0 5px;border-radius:10px;
   display:grid;place-items:center;background:#ef5b63;color:#fff;border:2px solid var(--panel);
-  font-size:9px;font-weight:800;line-height:1;
+  font-size:px;font-weight:800;line-height:1;
 }
 @media(max-width:760px){
   .notification-dropdown{position:fixed;top:65px;right:12px;width:calc(100vw - 24px);max-width:none}
   .notification-card{grid-template-columns:38px minmax(0,1fr) 84px;gap:8px;min-height:62px;padding:9px}
   .notification-card-icon{width:38px;height:38px}
-  .notification-stock{padding-left:8px;border-left:1px solid var(--border)}
+  .notification-stock{padding-left:7px;border-left:1px solid var(--border)}
   .notification-stock + .notification-stock{display:none}
   .notification-view{width:84px;grid-column:auto;justify-self:stretch}
-  .notification-footer{gap:8px;padding:9px 12px}
+  .notification-footer{gap:8px;padding:9px 15px}
+}
+
+/* =========================================================
+   GMJ REDESIGN — INTERFACE PRINCIPAL
+   ========================================================= */
+:root {
+  --bg: #f4f7fb;
+  --panel: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --border: #e6ebf2;
+  --green: #1677ff;
+  --teal-dark: #0b1727;
+  --teal: #10243b;
+  --teal-light: #1b3555;
+  --purple: #6d5dfc;
+  --red: #e55353;
+  --shadow-sm: 0 4px 18px rgba(15, 23, 42, .05);
+  --shadow-md: 0 12px 35px rgba(15, 23, 42, .07);
+}
+
+body { background: var(--bg); }
+.app { background: var(--bg); }
+.app.dark {
+  --bg: #0a111c;
+  --panel: #111b2a;
+  --text: #eef4ff;
+  --muted: #93a4b8;
+  --border: #233247;
+  --green: #4c9aff;
+  --teal-dark: #07111f;
+  --teal: #0c192b;
+  --teal-light: #172b46;
+}
+
+.sidebar {
+  width: 248px;
+  padding: 22px 16px 16px;
+  background: linear-gradient(180deg, #0a1727 0%, #0c1d31 100%);
+  border-right: 1px solid rgba(255,255,255,.05);
+  box-shadow: 10px 0 40px rgba(15,23,42,.08);
+}
+.brand {
+  min-height: 58px;
+  padding: 0 10px 22px;
+  gap: 0;
+}
+.brand-wordmark {
+  color: #fff;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -1.8px;
+}
+.brand-wordmark::after {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 3px;
+  margin-top: 3px;
+  border-radius: 999px;
+  background: #1677ff;
+}
+nav section { margin: 11px 0 17px; }
+nav section > small { color: #6f829a; padding-left: 11px; font-size: 9px; letter-spacing: 1.2px; }
+.nav {
+  height: 44px;
+  border-radius: 11px;
+  gap: 12px;
+  color: #aebdd0;
+  padding: 0 12px;
+  font-size: 13px;
+}
+.nav svg { opacity: .9; }
+.nav:hover { background: rgba(255,255,255,.055); color: #fff; transform: translateX(1px); }
+.nav.active {
+  background: linear-gradient(135deg, #1677ff, #2d8cff);
+  box-shadow: 0 8px 20px rgba(22,119,255,.24);
+}
+.profile {
+  padding: 11px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.055);
+  border-color: rgba(255,255,255,.08);
+}
+.profile > div { background: linear-gradient(135deg,#1677ff,#5d9fff); }
+.profile b { font-size: 12px; }
+.profile small { color: #8fa2b9; }
+.profile button { color: #91a2b6 !important; }
+
+.shell { margin-left: 248px; }
+.shell > header {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  height: 72px;
+  padding: 0 32px;
+  background: rgba(244,247,251,.94);
+  border-bottom: 1px solid rgba(226,232,240,.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.app.dark .shell > header { background: rgba(10,17,28,.94); border-bottom-color: var(--border); }
+header .left { gap: 11px; }
+header .left span { color: #8a99ad; font-weight: 600; }
+header .left b { color: var(--text); }
+.top-search {
+  width: min(360px, 34vw);
+  height: 40px;
+  border-radius: 12px;
+  background: var(--panel);
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.right button, .menu { border-radius: 10px; }
+.right button:hover, .menu:hover { background: var(--panel); box-shadow: var(--shadow-sm); }
+.avatar { background: linear-gradient(135deg,#0f172a,#315071); }
+
+main { max-width: 1540px; padding: 34px 32px 30px; }
+.heading, .page-heading { margin-bottom: 24px; }
+.heading h1, .page-heading h1 { font-size: 31px; letter-spacing: -1.15px; }
+.eyebrow { color: var(--green); font-size: 9px; letter-spacing: 1.15px; }
+.heading p:last-child, .page-heading p:last-child { font-size: 13px; }
+
+.primary {
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 11px;
+  background: linear-gradient(135deg,#1677ff,#2c8bff);
+  box-shadow: 0 9px 22px rgba(22,119,255,.18);
+}
+.primary:hover { transform: translateY(-1px); box-shadow: 0 12px 26px rgba(22,119,255,.24); }
+.secondary { min-height: 40px; border-radius: 10px; background: var(--panel); }
+
+.panel {
+  border-radius: 16px;
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.panel:hover { box-shadow: var(--shadow-md); }
+.stats { gap: 15px; }
+.stat { padding: 18px; min-height: 102px; border-radius: 16px; }
+.stat-icon { border-radius: 12px; background: rgba(22,119,255,.09); color: var(--green); }
+.stat:nth-child(2) .stat-icon { background: rgba(109,93,252,.09); color: var(--purple); }
+.stat:nth-child(3) .stat-icon { background: rgba(245,158,11,.1); color: #e79a16; }
+.stat:nth-child(4) .stat-icon { background: rgba(239,68,68,.09); color: var(--red); }
+.stat:nth-child(5) .stat-icon { background: rgba(100,116,139,.1); color: #64748b; }
+.stat strong { font-size: 23px; letter-spacing: -.5px; }
+.stat small { color: var(--muted); }
+
+.dashboard-financial {
+  background: linear-gradient(135deg, #fff 0%, #f8fbff 100%);
+  border-color: #dce9fb;
+  padding: 21px 22px;
+}
+.app.dark .dashboard-financial { background: linear-gradient(135deg,#111b2a,#12243a); border-color:#24405f; }
+.dashboard-financial .dashboard-value { font-size: 29px; }
+.dashboard-financial .stock-split > div { background: rgba(255,255,255,.65); border-color: var(--border); }
+.app.dark .dashboard-financial .stock-split > div { background: rgba(255,255,255,.025); }
+
+.grid { gap: 15px; margin-bottom: 15px; }
+.grid.two { grid-template-columns: 1.5fr 1fr; }
+.table-panel { border-radius: 16px; }
+.table-title { padding: 18px 20px; font-weight: 750; }
+th, td { padding: 13px 18px; }
+tbody tr { transition: background .15s ease; }
+tbody tr:hover { background: rgba(22,119,255,.035); }
+th { font-size: 10px; color: #8a99ad; }
+.product > b, .thumb, .big-thumb { background: rgba(22,119,255,.08); color: var(--green); }
+.badge { border-radius: 999px; padding: 6px 9px; }
+.actions button { border-radius: 9px; }
+.actions button:hover { color: var(--green); background: rgba(22,119,255,.09); }
+
+.toolbar { padding: 12px; border-radius: 14px; }
+.search { height: 40px; border-radius: 10px; background: var(--bg); }
+.filter, .date-filter { border-radius: 10px; background: var(--bg); }
+.form input, .form select, .form textarea { min-height: 40px; border-radius: 10px; }
+.form input:focus, .form select:focus, .form textarea:focus { border-color: rgba(22,119,255,.5); box-shadow: 0 0 0 3px rgba(22,119,255,.1); }
+.modal { border-radius: 18px; box-shadow: 0 25px 80px rgba(15,23,42,.2); }
+
+.info-banner, .helper-box { border-radius: 13px; background: rgba(22,119,255,.06); border-color: rgba(22,119,255,.15); }
+.info-banner svg, .helper-box svg { color: var(--green); }
+
+.gmj-footer {
+  max-width: 1540px;
+  margin: 0 auto;
+  padding: 0 32px 24px;
+  color: #94a3b8;
+  font-size: 11px;
+  text-align: right;
+}
+.app.dark .gmj-footer { color: #64748b; }
+
+.mobile-bottom-nav { display: none; }
+
+@media (max-width: 1050px) {
+  .sidebar { width: 228px; }
+  .shell { margin-left: 228px; }
+  .dashboard-financial + .stats { grid-template-columns: repeat(3, minmax(0,1fr)); }
+}
+@media (max-width: 800px) {
+  .shell { margin-left: 0; padding-bottom: 76px; }
+  .sidebar { width: 278px; }
+  .shell > header { height: 64px; padding: 0 16px; }
+  header .left span, header .left i { display: none; }
+  header .left b { font-size: 13px; }
+  .right { gap: 3px !important; }
+  main { padding: 24px 16px 12px; }
+  .gmj-footer { padding: 10px 16px 12px; text-align: center; }
+  .mobile-bottom-nav {
+    position: fixed;
+    z-index: 60;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    height: 64px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.1fr 1fr 1fr;
+    align-items: center;
+    padding: 5px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: rgba(255,255,255,.94);
+    box-shadow: 0 15px 45px rgba(15,23,42,.16);
+    backdrop-filter: blur(18px);
+  }
+  .app.dark .mobile-bottom-nav { background: rgba(17,27,42,.94); }
+  .mobile-bottom-nav button {
+    position: relative;
+    height: 54px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 700;
+  }
+  .mobile-bottom-nav button.active { color: var(--green); }
+  .mobile-add {
+    width: 48px !important;
+    height: 48px !important;
+    justify-self: center;
+    border-radius: 50% !important;
+    background: linear-gradient(135deg,#1677ff,#2c8bff) !important;
+    color: #fff !important;
+    box-shadow: 0 8px 20px rgba(22,119,255,.3);
+  }
+  .mobile-add span { font-size: 30px; line-height: 1; font-weight: 300; }
+  .notification-dropdown { top: 58px; }
+}
+@media (max-width: 560px) {
+  .heading h1, .page-heading h1 { font-size: 25px; }
+  .dashboard-financial { grid-template-columns: 1fr; }
+  .dashboard-financial + .stats { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .dashboard-financial + .stats .stat { padding: 14px; }
+  .stat { min-height: 92px; }
+  .stat strong { font-size: 20px; }
+}
+@media (max-width: 400px) {
+  .dashboard-financial + .stats { grid-template-columns: 1fr; }
+}
+
+/* =========================================================
+   GMJ — AJUSTES SOLICITADOS
+   ========================================================= */
+
+/* Marca: somente GMJ, maior e centralizada, sem a barra azul. */
+.sidebar .brand {
+  justify-content: center;
+  padding: 2px 0 18px;
+  min-height: 70px;
+}
+.sidebar .brand-wordmark {
+  font-size: 34px;
+  line-height: 1;
+  letter-spacing: -2.2px;
+  text-align: center;
+}
+.sidebar .brand-wordmark::after {
+  display: none;
+}
+
+/* A navegação continua utilizável quando necessário, mas sem barra visível. */
+.sidebar > nav,
+.report-tabs,
+.backdrop,
+.modal {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.sidebar > nav::-webkit-scrollbar,
+.report-tabs::-webkit-scrollbar,
+.backdrop::-webkit-scrollbar,
+.modal::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/* Tabelas cabem no painel sem criar rolagem horizontal. */
+.scroll,
+.stock-comparison .comparison-scroll {
+  width: 100%;
+  max-width: 100%;
+  overflow: visible;
+}
+
+.scroll table,
+.table-panel table,
+.stock-comparison .comparison-table {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  table-layout: fixed;
+}
+
+.scroll th,
+.scroll td,
+.table-panel th,
+.table-panel td,
+.stock-comparison .comparison-table th,
+.stock-comparison .comparison-table td {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.scroll td .product {
+  min-width: 0;
+}
+
+.scroll td .product > div {
+  min-width: 0;
+}
+
+.scroll td .product strong,
+.scroll td .product small {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Ações não devem empurrar a tabela para fora do painel. */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.actions button {
+  flex: 0 0 auto;
+}
+
+/* Logout: transforma a antiga "portinha" em um botão elegante. */
+.sidebar .profile > button {
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px;
+  padding: 0 !important;
+  margin-left: auto !important;
+  display: grid;
+  place-items: center;
+  flex: 0 0 38px;
+  border: 1px solid rgba(239, 83, 83, .30) !important;
+  border-radius: 10px !important;
+  background: rgba(239, 83, 83, .10) !important;
+  color: #ff7777 !important;
+  transition: .18s ease;
+}
+.sidebar .profile > button:hover {
+  background: rgba(239, 83, 83, .18) !important;
+  border-color: rgba(239, 83, 83, .55) !important;
+  color: #ff9a9a !important;
+  transform: translateY(-1px);
+  box-shadow: 0 7px 18px rgba(239, 83, 83, .12);
+}
+
+/* Evita qualquer barra horizontal causada pelo conjunto da aplicação. */
+html,
+body,
+#root,
+.app {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Painéis em duas colunas têm espaço real para as tabelas. */
+.grid.two {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+@media (max-width: 1050px) {
+  .grid.two {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .sidebar .brand {
+    justify-content: flex-start;
+    padding-left: 8px;
+  }
+
+  .sidebar .brand-wordmark {
+    font-size: 32px;
+  }
+
+  .scroll th,
+  .scroll td,
+  .table-panel th,
+  .table-panel td,
+  .stock-comparison .comparison-table th,
+  .stock-comparison .comparison-table td {
+    padding: 9px 7px;
+    font-size: 11px;
+  }
+
+  .scroll th,
+  .stock-comparison .comparison-table th {
+    font-size: 9px;
+  }
+
+  .scroll td .product {
+    gap: 6px;
+  }
+
+  .scroll td .product > b {
+    width: 28px;
+    height: 28px;
+    flex: 0 0 28px;
+  }
+
+  .sidebar .profile > button {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px;
+    flex-basis: 36px;
+  }
+}
+
+/* =========================================================
+   GMJ — REFINO DE ESCALA + FUTURISTA DISCRETO
+   Mantém a essência original, mas corrige a sensação de zoom.
+   ========================================================= */
+
+:root {
+  --gmj-blue: #1677ff;
+  --gmj-blue-2: #2d8cff;
+  --gmj-navy: #09182a;
+  --gmj-navy-2: #0d2239;
+  --gmj-line: rgba(22,119,255,.12);
+}
+
+html { font-size: 16px; }
+body { font-size: 14px; }
+
+/* Escala desktop mais equilibrada */
+.sidebar {
+  width: 230px;
+  padding: 16px 13px 13px;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(45,140,255,.12), transparent 34%),
+    linear-gradient(180deg, var(--gmj-navy) 0%, #0b1c30 58%, #09182a 100%);
+}
+.shell { margin-left: 230px; }
+
+.sidebar .brand {
+  min-height: 62px;
+  padding: 2px 0 15px;
+  justify-content: center;
+}
+.sidebar .brand-wordmark {
+  font-size: 35px;
+  letter-spacing: -2.6px;
+  line-height: .95;
+  text-shadow: 0 0 22px rgba(22,119,255,.16);
+}
+
+.sidebar > nav {
+  overflow: hidden;
+  scrollbar-width: none;
+}
+.sidebar > nav::-webkit-scrollbar { display: none; width: 0; height: 0; }
+nav section { margin: 7px 0 11px; }
+nav section > small {
+  padding: 0 10px 5px;
+  font-size: 8.5px;
+  letter-spacing: 1.25px;
+}
+.nav {
+  height: 37px;
+  border-radius: 10px;
+  gap: 10px;
+  padding: 0 10px;
+  font-size: 12px;
+}
+.nav svg { width: 16px; height: 16px; }
+.nav.active {
+  background: linear-gradient(135deg, var(--gmj-blue), var(--gmj-blue-2));
+  box-shadow: 0 7px 18px rgba(22,119,255,.20), inset 0 1px 0 rgba(255,255,255,.16);
+}
+
+.sidebar .profile {
+  padding: 9px;
+  min-height: 57px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, rgba(255,255,255,.065), rgba(255,255,255,.025));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+}
+.sidebar .profile > div {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  font-size: 11px;
+}
+.sidebar .profile b { font-size: 11px; }
+.sidebar .profile small { font-size: 9px; }
+.sidebar .profile > button {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px;
+  flex-basis: 34px;
+  border-radius: 9px !important;
+}
+.sidebar .profile > button svg { width: 15px; height: 15px; }
+
+.shell > header {
+  height: 64px;
+  padding: 0 24px;
+}
+header .left, header .right { gap: 8px; font-size: 13px; }
+.top-search {
+  width: min(330px, 31vw);
+  height: 36px;
+  border-radius: 10px;
+}
+.right button, .menu { width: 34px; height: 34px; }
+.avatar { width: 32px; height: 32px; }
+
+main {
+  max-width: 1480px;
+  padding: 26px 26px 20px;
+}
+.heading, .page-heading { margin-bottom: 19px; gap: 16px; }
+.heading h1, .page-heading h1 {
+  font-size: 27px;
+  letter-spacing: -1px;
+}
+.heading p:last-child, .page-heading p:last-child { font-size: 12px; margin-top: 6px; }
+.eyebrow { font-size: 8.5px; letter-spacing: 1.15px; margin-bottom: 5px; }
+
+.primary { min-height: 38px; padding: 0 13px; border-radius: 10px; font-size: 12px; }
+.secondary { min-height: 36px; padding: 0 12px; font-size: 12px; }
+
+.panel {
+  padding: 16px;
+  border-radius: 14px;
+  box-shadow: 0 5px 20px rgba(15,23,42,.045), inset 0 1px 0 rgba(255,255,255,.5);
+}
+.panel:hover { box-shadow: 0 10px 28px rgba(15,23,42,.07), inset 0 1px 0 rgba(255,255,255,.5); }
+.panel-head h2 { font-size: 13px; }
+.grid { gap: 13px; margin-bottom: 13px; }
+.grid.two { grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); }
+
+.stats { gap: 12px; margin-bottom: 12px; }
+.stat {
+  min-height: 88px;
+  padding: 14px;
+  border-radius: 14px;
+}
+.stat-icon { width: 38px; height: 38px; border-radius: 10px; }
+.stat span { font-size: 11px; }
+.stat strong { font-size: 20px; margin: 3px 0; }
+.stat small { font-size: 10px; }
+
+.dashboard-financial { padding: 17px 18px; }
+.dashboard-financial .dashboard-value { font-size: 26px; }
+
+/* Tabelas compactas e sem rolagem horizontal */
+.scroll {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden !important;
+}
+.scroll table,
+.table-panel table,
+.stock-comparison .comparison-table {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  table-layout: fixed;
+}
+th, td,
+.scroll th, .scroll td,
+.table-panel th, .table-panel td,
+.stock-comparison .comparison-table th,
+.stock-comparison .comparison-table td {
+  padding: 10px 11px;
+  font-size: 11px;
+  line-height: 1.25;
+}
+th { font-size: 8.5px; letter-spacing: .2px; }
+
+/* Ações e campos não podem forçar a largura */
+.actions { gap: 4px; max-width: 100%; }
+.actions button { padding: 6px 7px; font-size: 10px; }
+.toolbar { padding: 10px; border-radius: 12px; gap: 8px; }
+.search, .filter, .date-filter { height: 36px; border-radius: 9px; }
+.form input, .form select, .form textarea { min-height: 38px; border-radius: 9px; font-size: 12px; }
+
+/* Futurismo discreto: brilho, vidro e linhas azuis — sem mudar a identidade */
+.panel-head::after {
+  content: '';
+  display: block;
+}
+.info-banner, .helper-box {
+  box-shadow: inset 3px 0 0 rgba(22,119,255,.55);
+}
+.badge { font-size: 10px; }
+
+.gmj-footer {
+  max-width: 1480px;
+  padding: 0 26px 18px;
+  font-size: 10px;
+}
+
+@media (max-width: 1050px) {
+  .sidebar { width: 220px; }
+  .shell { margin-left: 220px; }
+  .top-search { width: 260px; }
+}
+
+@media (max-width: 800px) {
+  .shell { margin-left: 0; }
+  .sidebar { width: 270px; padding: 18px 14px 14px; }
+  .sidebar .brand { justify-content: center; }
+  .sidebar .brand-wordmark { font-size: 34px; }
+  .shell > header { height: 62px; padding: 0 14px; }
+  .top-search { width: min(220px, 43vw); height: 35px; }
+  main { padding: 20px 14px 12px; }
+  .panel { padding: 14px; }
+  .grid.two { grid-template-columns: 1fr; }
+  .gmj-footer { padding: 8px 14px 10px; }
+}
+
+@media (max-width: 560px) {
+  .heading h1, .page-heading h1 { font-size: 23px; }
+  .heading { align-items: flex-start; flex-direction: column; }
+  .heading .primary { align-self: stretch; }
+  .top-search { width: min(190px, 48vw); }
+  .stats { gap: 9px; }
+  .stat { min-height: 82px; padding: 11px; }
+  .stat-icon { width: 34px; height: 34px; }
+  .stat strong { font-size: 18px; }
+  th, td, .scroll th, .scroll td { padding: 8px 6px; font-size: 10px; }
+}
+
+/* =========================================================
+   GMJ — AJUSTES FINAIS DE LAYOUT
+   Rodapé sempre no fim + menu lateral rolável pelo mouse
+   ========================================================= */
+
+/* O aplicativo ocupa sempre a altura disponível da janela. */
+.app {
+  min-height: 100dvh;
+}
+
+.shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.shell > main {
+  flex: 1 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* O rodapé não fica no meio quando uma tela tem pouco conteúdo. */
+.gmj-footer {
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: 1480px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 12px 26px 18px;
+  text-align: center;
+}
+
+/* Menu lateral: rolagem com a roda do mouse, mas sem barra visual. */
+.sidebar > nav {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  scrollbar-width: none;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.sidebar > nav::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/* A marca fica limpa, sem a linha azul inferior. */
+.sidebar .brand {
+  flex: 0 0 auto;
+  justify-content: center;
+}
+
+.sidebar .brand-wordmark::after {
+  display: none !important;
+  content: none !important;
+}
+
+.sidebar .brand-wordmark {
+  font-size: 36px;
+  line-height: 1;
+  letter-spacing: -2.8px;
+}
+
+@media (max-width: 800px) {
+  .gmj-footer {
+    padding: 10px 14px calc(78px + env(safe-area-inset-bottom));
+  }
 }

@@ -89,12 +89,12 @@ export default function App() {
 
   return <div className={dark ? "app dark" : "app"}>
     <aside className={mobile ? "sidebar open" : "sidebar"}>
-      <div className="brand"><div className="logo"><Zap size={20} /></div><div><b>ToolStock</b><small>Inventory system</small></div><button type="button" className="mobile-close" onClick={() => setMobile(false)}><X size={18} /></button></div>
+      <div className="brand"><div className="brand-wordmark">GMJ</div><button type="button" className="mobile-close" onClick={() => setMobile(false)}><X size={18} /></button></div>
       <nav>{visibleNav.map(([group, items]) => <section key={group}><small>{group}</small>{items.map(([id, label, Icon]) => <button type="button" key={id} className={effectivePage === id ? "nav active" : "nav"} onClick={() => { setPage(id); setMobile(false); }}><Icon size={18} /><span>{label}</span></button>)}</section>)}</nav>
       <div className="profile"><div>{getInitials(currentUser.name)}</div><span><b>{currentUser.name}</b><small>{roleLabel(currentUser.role)}</small></span><button type="button" title="Sair" onClick={logout} style={{ marginLeft: "auto" }}><LogOut size={16} /></button></div>
     </aside>
     {mobile && <div className="overlay" onClick={() => setMobile(false)} />}
-    <div className="shell"><header><div className="left"><button className="menu" onClick={() => setMobile(true)}><Menu /></button><span>ToolStock</span><i>/</i><b>{currentPage}</b></div><div className="right">
+    <div className="shell"><header><div className="left"><button className="menu" onClick={() => setMobile(true)} aria-label="Abrir menu"><Menu /></button><span>GMJ</span><i>/</i><b>{currentPage}</b></div><div className="right">
       <form className="top-search" onSubmit={submitSearch}><Search size={16} /><input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Buscar no sistema..." /></form>
       <button title={dark ? "Modo claro" : "Modo escuro"} onClick={() => setDark(!dark)}>{dark ? <Sun /> : <Moon />}</button>
       <div className="header-action"><button title="Notificações" onClick={() => { setNotificationsOpen(!notificationsOpen); setProfileOpen(false); }}><Bell />{notificationCount > 0 && <span className="notification-badge">{notificationCount > 9 ? "9+" : notificationCount}</span>}</button>{notificationsOpen && <NotificationPanel alerts={visibleStockAlerts} onClear={clearNotifications} onOpenProducts={() => { setPage("products"); setNotificationsOpen(false); }} />}</div>
@@ -112,8 +112,20 @@ export default function App() {
         {effectivePage === "reports" && <Reports />}
         {effectivePage === "users" && <Users currentUser={currentUser} />}
       </main>
+      <footer className="gmj-footer">© 2026 GMJ — Sistema de Gestão de Estoque</footer>
+      <MobileNav page={effectivePage} setPage={setPage} openMenu={() => setMobile(true)} onNewMovement={() => setPage("entries")} />
     </div>
   </div>;
+}
+
+function MobileNav({ page, setPage, openMenu, onNewMovement }) {
+  return <nav className="mobile-bottom-nav" aria-label="Navegação rápida">
+    <button type="button" className={page === "dashboard" ? "active" : ""} onClick={() => setPage("dashboard")}><LayoutDashboard size={19} /><span>Início</span></button>
+    <button type="button" className={page === "products" ? "active" : ""} onClick={() => setPage("products")}><Package size={19} /><span>Produtos</span></button>
+    <button type="button" className="mobile-add" onClick={onNewMovement} aria-label="Nova movimentação"><span>+</span></button>
+    <button type="button" className={['entries','exits','comparison','movements'].includes(page) ? "active" : ""} onClick={() => setPage("comparison")}><Boxes size={19} /><span>Estoque</span></button>
+    <button type="button" onClick={openMenu}><Menu size={19} /><span>Mais</span></button>
+  </nav>;
 }
 
 function NotificationPanel({ alerts, onClear, onOpenProducts }) {
@@ -145,7 +157,7 @@ function Dashboard({ currentUser, onNewMovement }) {
   if (error) return <div className="panel state error">{error}</div>;
   const featured = topDistributed?.[0];
   return <div>
-    <div className="heading"><div><p className="eyebrow">Resumo do estoque</p><h1>Olá, {currentUser.name} 👋</h1><p>Acompanhe os principais indicadores do seu estoque.</p></div><button className="primary" onClick={onNewMovement}><ShoppingCart size={17} />Nova movimentação</button></div>
+    <div className="heading"><div><p className="eyebrow">Resumo do estoque</p><h1>Olá, {currentUser.name} </h1><p>Acompanhe os principais indicadores do seu estoque.</p></div><button className="primary" onClick={onNewMovement}><ShoppingCart size={17} />Nova movimentação</button></div>
     <section className="panel dashboard-summary dashboard-financial"><div className="panel-head"><div><p className="eyebrow">Visão financeira</p><h2>Valor total do estoque</h2></div></div><strong className="dashboard-value">{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(Number(stats.stockValue || 0))}</strong><div className="stock-split"><div><span>Uso interno</span><strong>{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(Number(stats.internalValue || 0))}</strong></div><div><span>Para venda</span><strong>{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(Number(stats.saleValue || 0))}</strong></div></div></section>
     <div className="stats"><DashboardStat icon={Package} label="Produtos" value={stats.totalProducts} text="Cadastrados" /><DashboardStat icon={Boxes} label="Estoque interno" value={stats.internalProducts} text={`${stats.internalQuantity} unidades`} /><DashboardStat icon={ShoppingCart} label="Produtos para venda" value={stats.saleProducts} text={`${stats.saleQuantity} unidades`} /><DashboardStat icon={Zap} label="Estoque baixo" value={stats.lowStock} text="Atenção" /><DashboardStat icon={Boxes} label="Sem estoque" value={stats.outOfStock} text="Indisponíveis" /></div>
     <div className="grid two"><section className="panel"><div className="panel-head"><div><p className="eyebrow">Movimentações</p><h2>Últimas movimentações</h2></div></div>{recentMovements?.length ? <div className="scroll"><table><thead><tr><th>Item</th><th>Tipo</th><th>Quantidade</th><th>Data</th></tr></thead><tbody>{recentMovements.slice(0, 5).map((item, index) => <tr key={item.id || index}><td>{item.productName || "Item"}</td><td>{item.type === "ENTRADA" ? "Entrada" : "Saída"}</td><td>{item.quantity || 0} {item.unit || "un"}</td><td>{formatDate(item.movementDate)}</td></tr>)}</tbody></table></div> : <div className="state">Nenhuma movimentação registrada.</div>}</section>
